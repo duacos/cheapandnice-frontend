@@ -18,9 +18,10 @@ function Login(props) {
         }
       );
       localStorage.setItem("username", response.data.body.username);
+      localStorage.setItem("isLoggedIn", true);
       props.history.push("/");
     } catch (err) {
-      throw new Error(err.message);
+      console.log(err.message);
     }
   };
 

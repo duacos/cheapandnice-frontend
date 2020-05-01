@@ -19,7 +19,9 @@ const Header = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    if (localStorage.getItem("isLoggedIn")) {
+      fetchData();
+    }
   }, []);
 
   return (

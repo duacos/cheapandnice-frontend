@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
@@ -20,13 +20,18 @@ const LayoutComponent = ({ component: Component, ...rest }) => {
   );
 };
 
+const HomePage = lazy(() => import("./pages/Home"));
+const LoginPage = lazy(() => import("./pages/Login"));
+
 const Router = () => (
   <BrowserRouter>
-    <Switch>
-      <LayoutComponent exact path="/" component={Home} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <LayoutComponent exact path="/" component={HomePage} />
 
-      <Route exact path="/login" component={Login} />
-    </Switch>
+        <Route exact path="/login" component={LoginPage} />
+      </Switch>
+    </Suspense>
   </BrowserRouter>
 );
 
