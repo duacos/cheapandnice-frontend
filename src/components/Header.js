@@ -9,20 +9,22 @@ axios.defaults.withCredentials = true;
 
 const Header = () => {
   const [username, setUsername] = useState("");
+  const localUsername = localStorage.getItem("username");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   async function fetchData() {
     const response = await axios.get("http://localhost:8000/api/users/store", {
-      username: localStorage.getItem("username"),
+      username: localUsername,
     });
 
     setUsername(response.data.body.username);
   }
 
   useEffect(() => {
-    if (localStorage.getItem("isLoggedIn")) {
+    if (isLoggedIn) {
       fetchData();
     }
-  }, []);
+  });
 
   return (
     <header className="header">
