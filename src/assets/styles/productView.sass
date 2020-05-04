@@ -1,0 +1,62 @@
+@import "imageGallery.css"
+@import config.sass
+
+$gallery-width: 500px
+
+.product
+
+  width: 100%
+  background-color: white
+  text-align: center
+  &-view
+    width: 100%
+    position: relative
+    padding-top: 3em
+    padding-bottom: 3em
+
+  &-price
+    color: $main-color-two
+    font-size: 2em
+    margin-top: 2em
+
+  &-gallery, &-details
+    display: inline-block
+    vertical-align: top
+    margin-right: 3em
+    margin-left: 3em
+
+  &-gallery
+    width: $gallery-width
+    left: 5em
+
+  &-details
+    width: 700px
+    right: 10em
+    color: $font-basic-color
+
+    h1
+      font-family: 'Roboto Condensed', sans-serif
+
+  &-description
+    font-size: 1.2em
+    text-align: left
+
+  &-button
+    background: $button-color
+
+  &-button, &-button-login
+    border: 1px solid black
+    width: 220px
+    padding: .5em
+    margin-top: 2em
+    border-radius: 2px
+
+  &-button-login
+    background: $button-color-gray
+    color: white
+
+.image-gallery
+  &-image
+    width: $gallery-width
+  &-thumbnail
+    width: auto

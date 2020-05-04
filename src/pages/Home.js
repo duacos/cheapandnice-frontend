@@ -17,6 +17,7 @@ const Home = () => {
       );
     });
   };
+
   return (
     <React.Fragment>
       <h1>Deals and Promotions</h1>
@@ -27,7 +28,6 @@ const Home = () => {
 
 const useFetchData = (loadPage) => {
   const [products, setProducts] = useState([]);
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   useEffect(() => {
     // make the request ONLY if "products" is empty (to avoid infinite loop)
@@ -36,10 +36,9 @@ const useFetchData = (loadPage) => {
         setProducts(response.data.body);
         // setLoding is set to false once we get the data
         loadPage.setLoading(false);
-        console.log(products);
       });
     }
-  }, [isLoggedIn, loadPage, products]);
+  }, [loadPage, products]);
 
   return products;
 };

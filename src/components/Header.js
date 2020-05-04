@@ -28,31 +28,29 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="container">
-        <img className="header-img" src={logo} alt="cheap and nice logo"></img>
-        <div className="header-search">
-          <input className="header-input" type="text" />
+      <img className="header-img" src={logo} alt="cheap and nice logo"></img>
+      <div className="header-search">
+        <input className="header-input" type="text" />
+      </div>
+      <div className="header-icons">
+        <div className="header-icon">
+          <ProfileSImg />
         </div>
-        <div className="header-icons">
-          <div className="header-icon">
-            <ProfileSImg />
-          </div>
-          <div className="header-text">
-            {username ? (
-              username
-            ) : (
-              <div>
-                <Link to="/login">Login</Link> | Register
-              </div>
-            )}
-          </div>
+        <div className="header-text">
+          {username ? (
+            username
+          ) : (
+            <div>
+              <Link to="/login">Login</Link> | Register
+            </div>
+          )}
+        </div>
 
-          <div className="header-icon">
-            <CartImg />
-          </div>
-          <div className="header-text">
-            <Link to="/login">Shopping cart</Link>
-          </div>
+        <div className="header-icon">
+          <CartImg />
+        </div>
+        <div className="header-text">
+          <Link to="/login">Shopping cart</Link>
         </div>
       </div>
     </header>

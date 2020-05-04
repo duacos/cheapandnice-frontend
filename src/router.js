@@ -19,6 +19,7 @@ const LayoutComponent = ({ component: Component, ...rest }) => {
 
 const HomePage = lazy(() => import("./pages/Home"));
 const LoginPage = lazy(() => import("./pages/Login"));
+const ProductViewPage = lazy(() => import("./pages/ProductView"));
 
 const Router = () => (
   <BrowserRouter>
@@ -27,6 +28,11 @@ const Router = () => (
         <LayoutComponent exact path="/" component={HomePage} />
 
         <Route exact path="/login" component={LoginPage} />
+        <LayoutComponent
+          exact
+          path="/products/:productId"
+          component={ProductViewPage}
+        />
       </Switch>
     </Suspense>
   </BrowserRouter>
