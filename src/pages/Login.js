@@ -19,7 +19,7 @@ function Login(props) {
       );
       localStorage.setItem("username", response.data.body.username);
       localStorage.setItem("isLoggedIn", true);
-      props.history.push("/");
+      props.history.goBack();
     } catch (err) {
       console.log(err.message);
     }

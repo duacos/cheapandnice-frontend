@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../assets/styles/home.sass";
 import "../assets/styles/productView.sass";
-import axios from "axios";
 import { useLoading } from "../helpers";
 import ReactMarkdown from "react-markdown";
 import ImageGallery from "react-image-gallery";
 import { Link } from "react-router-dom";
+import { useFetchOneProduct } from "../api/products";
 
 const ProductView = (props) => {
   const loadPage = useLoading();
-  const product = useFetchData(loadPage, props.match.params.productId);
-  const products = useFecthAllProducts(loadPage);
+  const product = useFetchOneProduct(loadPage, props.match.params.productId);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   const showGallery = () => {
@@ -53,42 +52,6 @@ const ProductView = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-const useFecthAllProducts = (loadPage, filter) => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    if (products.length === 0) {
-      axios
-        .get(`http://localhost:8000/api/products/list`, filter)
-        .then((response) => {
-          setProducts(response.data.body);
-          // setLoding is set to false once we get the data
-          loadPage.setLoading(false);
-        });
-    }
-  }, [filter]);
-  return products;
-};
-
-const useFetchData = (loadPage, productId) => {
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    // make the request ONLY if "products" is empty (to avoid infinite loop)
-    if (Object.keys(product).length === 0) {
-      axios
-        .get(`http://localhost:8000/api/products/${productId}`)
-        .then((response) => {
-          setProduct(response.data.body);
-          // setLoding is set to false once we get the data
-          loadPage.setLoading(false);
-        });
-    }
-  }, [productId, loadPage, product]);
-
-  return product;
 };
 
 export default ProductView;

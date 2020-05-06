@@ -4,9 +4,11 @@ import axios from "axios";
 import { useLoading } from "../helpers";
 import ProductItem from "../components/ProductItem";
 
+import { useFetchAllProducts } from "../api/products";
+
 const Home = () => {
   const loadPage = useLoading();
-  const products = useFetchData(loadPage);
+  const products = useFetchAllProducts(loadPage);
 
   const getList = () => {
     return products.map((product) => {
@@ -24,23 +26,6 @@ const Home = () => {
       <div className="container">{getList()}</div>
     </React.Fragment>
   );
-};
-
-const useFetchData = (loadPage) => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    // make the request ONLY if "products" is empty (to avoid infinite loop)
-    if (products.length === 0) {
-      axios.get("http://localhost:8000/api/products/list").then((response) => {
-        setProducts(response.data.body);
-        // setLoding is set to false once we get the data
-        loadPage.setLoading(false);
-      });
-    }
-  }, [loadPage, products]);
-
-  return products;
 };
 
 export default Home;
