@@ -7,9 +7,14 @@ import ImageGallery from "react-image-gallery";
 import { Link } from "react-router-dom";
 import { useFetchOneProduct } from "../api/products";
 
+// called when url is products/:id
+
 const ProductView = (props) => {
   const loadPage = useLoading();
-  const product = useFetchOneProduct(loadPage, props.match.params.productId);
+  const product = useFetchOneProduct(
+    loadPage.setLoading,
+    props.match.params.productId
+  );
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   const showGallery = () => {

@@ -20,6 +20,7 @@ const LayoutComponent = ({ component: Component, ...rest }) => {
 const HomePage = lazy(() => import("./pages/Home"));
 const LoginPage = lazy(() => import("./pages/Login"));
 const ProductViewPage = lazy(() => import("./pages/ProductView"));
+const ProductList = lazy(() => import("./pages/ProductList"));
 
 const Router = () => (
   <BrowserRouter>
@@ -33,6 +34,8 @@ const Router = () => (
           path="/products/:productId"
           component={ProductViewPage}
         />
+
+        <LayoutComponent exact path="/products" component={ProductList} />
       </Switch>
     </Suspense>
   </BrowserRouter>

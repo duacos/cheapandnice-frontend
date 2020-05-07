@@ -7,7 +7,7 @@ import { useFetchAllProducts } from "../api/products";
 
 const Home = () => {
   const loadPage = useLoading();
-  const products = useFetchAllProducts(loadPage);
+  const products = useFetchAllProducts(loadPage.setLoading);
 
   const getList = () => {
     return products.map((product) => {

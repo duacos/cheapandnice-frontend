@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as ProfileSImg } from "../assets/images/profile.svg";
 import { ReactComponent as CartImg } from "../assets/images/cart.svg";
 import { searchProducts, useHeaderProfileData } from "../api/products";
@@ -10,8 +10,10 @@ const localUsername = localStorage.getItem("username");
 const isLoggedIn = localStorage.getItem("isLoggedIn");
 
 const Header = (props) => {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState("");
   const [results, setResults] = useState([]);
+  // we don't want the search list to be visible the whole time, but only when we type
   const [resultsVisible, setResultsVisible] = useState(false);
   const username = useHeaderProfileData(isLoggedIn, localUsername);
 
@@ -20,14 +22,15 @@ const Header = (props) => {
     searchProducts(e.target.value).then((data) => {
       setResults(data);
     });
+
+    // search results are visible while typing
     setResultsVisible(true);
   };
 
   const handleClick = () => {
-    searchProducts(searchValue).then((data) => {
-      setResults(data);
-    });
+    // Invisible when pressing "search"
     setResultsVisible(false);
+    history.push(`/products?search=${searchValue}`);
   };
 
   const handleOnFocus = () => {
