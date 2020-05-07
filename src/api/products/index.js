@@ -63,7 +63,7 @@ export async function searchProducts(searchValue) {
     { search: searchValue },
     { headers: { "Content-Type": "application/json" } }
   );
-  console.log(response.data.body);
+  return response.data.body;
 }
 
 export const useHeaderProfileData = (isLoggedIn, localUsername) => {
