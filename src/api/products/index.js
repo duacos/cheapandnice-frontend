@@ -3,9 +3,11 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
+console.log(process.env.REACT_APP_API);
+
 // general configuration of api point
 const config = {
-  url: "http://localhost:8000/api",
+  url: process.env.REACT_APP_API,
 };
 
 export const useFetchAllProducts = (setLoading) => {
