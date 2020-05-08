@@ -42,5 +42,9 @@
   "engines": {
     "node": "12.16.x",
     "yarn": "1.x"
+  },
+  "env": {
+    "production": "true",
+    "verboseApiCalls": "false"
   }
 }
