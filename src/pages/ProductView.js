@@ -68,7 +68,7 @@ const ProductView = (props) => {
                   className="product-button"
                   onClick={handleClick.bind(this, product._id)}
                 >
-                  Add to cart
+                  <Link to="/products/cart">Add to cart</Link>
                 </button>
               ) : (
                 <button className="product-button-login">

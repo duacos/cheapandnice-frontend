@@ -37,8 +37,13 @@ const Cart = () => {
   return (
     <React.Fragment>
       <div className="container">
-        <h1>These are your products</h1>
-        <ul className="cart">{getList()}</ul>
+        <h1 className="content-title">These are your products</h1>
+        <div className="flex-listing">
+          <ul className="cart">{getList()}</ul>
+          <div className="cart-summay">
+            <div className="cart-summay-text">Subtotal (2 items): </div>
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );
