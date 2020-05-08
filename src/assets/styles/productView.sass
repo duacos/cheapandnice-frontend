@@ -19,6 +19,13 @@ $gallery-width: 500px
     font-size: 2em
     margin-top: 2em
 
+    span
+      color: $font-basic-color
+      margin-right: 1em
+
+  &-quantity
+    margin-right: 1em
+
   &-gallery, &-details
     display: inline-block
     vertical-align: top
@@ -50,10 +57,14 @@ $gallery-width: 500px
     padding: .5em
     margin-top: 2em
     border-radius: 2px
+    cursor: pointer
 
   &-button-login
     background: $button-color-gray
-    color: white
+
+    a
+      color: white
+      text-decoration: none
 
 .image-gallery
   &-image

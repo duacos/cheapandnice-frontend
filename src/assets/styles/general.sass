@@ -1,8 +1,5 @@
 @import config.sass
 
-body
-  font-family: 'Nunito', sans-serif
-  color: $font-basic-color
 .container
   width: 1525px
   margin: 0 auto
@@ -62,6 +59,7 @@ body
     box-shadow: 0 3px 3px $box-shadow
     position: absolute
     padding: 0
+    overflow: hidden
 
   &-search-button
     position: absolute
@@ -92,7 +90,7 @@ body
     box-sizing: border-box
     width: 100%
 
-    &:nth-child(even)
+    &:nth-child(odd)
       background-color: $box-shadow
 
     a

@@ -3,6 +3,12 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
 
+const HomePage = lazy(() => import("./pages/Home"));
+const LoginPage = lazy(() => import("./pages/Login"));
+const ProductViewPage = lazy(() => import("./pages/ProductView"));
+const ProductListPage = lazy(() => import("./pages/ProductList"));
+const CartPage = lazy(() => import("./pages/Cart"));
+
 // This allows me to load multiple layouts
 const LayoutComponent = ({ component: Component, ...rest }) => {
   return (
@@ -17,25 +23,19 @@ const LayoutComponent = ({ component: Component, ...rest }) => {
   );
 };
 
-const HomePage = lazy(() => import("./pages/Home"));
-const LoginPage = lazy(() => import("./pages/Login"));
-const ProductViewPage = lazy(() => import("./pages/ProductView"));
-const ProductList = lazy(() => import("./pages/ProductList"));
-
 const Router = () => (
   <BrowserRouter>
     <Suspense fallback={<div>Loading...</div>}>
       <Switch>
-        <LayoutComponent exact path="/" component={HomePage} />
-
         <Route exact path="/login" component={LoginPage} />
+        <LayoutComponent exact path="/" component={HomePage} />
+        <LayoutComponent exact path="/products" component={ProductListPage} />
+        <LayoutComponent exact path="/products/cart" component={CartPage} />
         <LayoutComponent
           exact
           path="/products/:productId"
           component={ProductViewPage}
         />
-
-        <LayoutComponent exact path="/products" component={ProductList} />
       </Switch>
     </Suspense>
   </BrowserRouter>

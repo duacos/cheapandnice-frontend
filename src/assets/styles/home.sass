@@ -6,15 +6,13 @@ body
   background-color: $section-color
   position: relative
   width: 280px
-  height: 550px
+  height: 500px
   list-style: none
-  vertical-align: top
   padding-top: 2em
   padding-bottom: 2em
-  display: inline-block
   border-radius: 5px
-  margin: 1.5em
-  box-shadow: 3px 3px 3px $box-shadow
+  margin: 1em
+  box-shadow: 5px 5px 3px $box-shadow
   font-family: 'Nunito', sans-serif
   color: $font-basic-color
 
@@ -30,7 +28,7 @@ body
     margin: 0 auto
     position: relative
     height: 300px
-    width: 250px
+    width: 190px
   img
     position: absolute
     left: 0
@@ -41,11 +39,11 @@ body
 
   &-button
     background: $button-color
-    border: 1px solid black
+    border: none
     width: 100%
-    padding: .5em
+    padding: .7em
     margin: 0 auto
-    border-radius: 2px
+    border-radius: 5px
 
   h2
     overflow: hidden
@@ -62,3 +60,8 @@ body
   a
     text-decoration: none
     color: black
+
+.flex-listing
+  display: flex
+  justify-content: center
+  flex-wrap: wrap

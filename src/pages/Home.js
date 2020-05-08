@@ -19,10 +19,15 @@ const Home = () => {
     });
   };
 
-  return (
+  return loadPage.isLoading ? (
+    <h1>Loading</h1>
+  ) : (
     <React.Fragment>
-      <h1>Deals and Promotions</h1>
-      <div className="container">{getList()}</div>
+      <div className="container">
+        <h1>Deals and Promotions</h1>
+
+        <div className="flex-listing">{getList()}</div>
+      </div>
     </React.Fragment>
   );
 };

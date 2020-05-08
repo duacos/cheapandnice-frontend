@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
 import { Link, useHistory } from "react-router-dom";
-import { ReactComponent as ProfileSImg } from "../assets/images/profile.svg";
-import { ReactComponent as CartImg } from "../assets/images/cart.svg";
-import { searchProducts, useHeaderProfileData } from "../api/products";
 import SearchResults from "../components/SearchResults";
 
-const localUsername = localStorage.getItem("username");
-const isLoggedIn = localStorage.getItem("isLoggedIn");
+import { ReactComponent as ProfileSImg } from "../assets/images/profile.svg";
+import { ReactComponent as CartImg } from "../assets/images/cart.svg";
 
-const Header = (props) => {
+import { searchProducts, useHeaderProfileData } from "../api/products";
+
+const Header = () => {
+  const localUsername = localStorage.getItem("username");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
   const history = useHistory();
   const [searchValue, setSearchValue] = useState("");
   const [results, setResults] = useState([]);
-  // we don't want the search list to be visible the whole time, but only when we type
+  /* we don't want the search list to be visible the whole time,
+   but only when we type in the search bar*/
   const [resultsVisible, setResultsVisible] = useState(false);
   const username = useHeaderProfileData(isLoggedIn, localUsername);
 
@@ -34,6 +37,7 @@ const Header = (props) => {
   };
 
   const handleOnFocus = () => {
+    // Remove the search results if active
     setResultsVisible(false);
   };
 
@@ -77,12 +81,18 @@ const Header = (props) => {
           )}
         </div>
 
-        <div className="header-icon">
-          <CartImg />
-        </div>
-        <div className="header-text">
-          <Link to="/login">Shopping cart</Link>
-        </div>
+        {username ? (
+          <React.Fragment>
+            <div className="header-icon">
+              <CartImg />
+            </div>
+            <div className="header-text">
+              <Link to="/products/cart">Shopping cart</Link>
+            </div>
+          </React.Fragment>
+        ) : (
+          ""
+        )}
       </div>
     </header>
   );
