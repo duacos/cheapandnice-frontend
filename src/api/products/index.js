@@ -14,7 +14,7 @@ export const useFetchAllProducts = (setLoading) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get(`${config.url}/products/list`).then((response) => {
+    axios.get(`${config.url}/api/products/list`).then((response) => {
       setProducts(response.data.body);
       // setLoding is set to false once we get the data
       setLoading(false);
@@ -29,7 +29,7 @@ export const useFetchOneProduct = (setLoading, productId) => {
   const productLength = Object.keys(product).length;
 
   useEffect(() => {
-    axios.get(`${config.url}/products/${productId}`).then((response) => {
+    axios.get(`${config.url}/api/products/${productId}`).then((response) => {
       setProduct(response.data.body);
       setLoading(false);
     });
@@ -40,7 +40,7 @@ export const useFetchOneProduct = (setLoading, productId) => {
 
 export async function searchProducts(searchValue) {
   const response = await axios.post(
-    `${config.url}/products/filter/search`,
+    `${config.url}/api/products/filter/search`,
     { search: searchValue },
     { headers: { "Content-Type": "application/json" } }
   );
@@ -62,7 +62,7 @@ export const useFetchCartProducts = (setLoading) => {
   const cartLength = Object.keys(cart).length;
 
   useEffect(() => {
-    axios.get(`${config.url}/cart`).then((response) => {
+    axios.get(`${config.url}/api/cart`).then((response) => {
       setCart(response.data.body);
       setLoading(false);
     });
@@ -75,7 +75,7 @@ export const useHeaderProfileData = (isLoggedIn, localUsername) => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(`${config.url}/users/store`, {
+      const response = await axios.get(`${config.url}/api/users/store`, {
         username: localUsername,
       });
       setUsername(response.data.body.username);
