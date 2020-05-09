@@ -1,7 +1,15 @@
 @import config.sass
 
 .cart
-  width: 900px
+  width: 870px
+  margin-right: 2em
+
+  &-product-remove
+    margin-bottom: .5em
+    margin-top: .5em
+    text-align: right
+    color: $main-color-two
+
   &-product-img
     vertical-align: middle
     display: inline-block
@@ -38,21 +46,24 @@
     width: 600px
     vertical-align: middle
     font-size: .8em
+
+    a
+      color: $font-basic-color
+      text-decoration: none
   li
     background-color: $section-color
     padding: 1em
+    width: 100%
     margin-bottom: 2em
     box-shadow: 5px 5px 3px $box-shadow
     border-radius: 5px
     list-style: none
 
-.cart-summay
+.cart-summary
   background-color: $section-color
+  position: relative
   padding: 2em
   width: 500px
   height: 300px
   margin-left: 3em
   box-shadow: 5px 5px 3px $box-shadow
-
-  &-text
-    font-size: 1.5em

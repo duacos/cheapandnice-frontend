@@ -15,9 +15,16 @@ $button-color-gray: #bdbdbd
 
 $box-shadow: #f7f7f7
 
+html, body
+  height: 100%
+  margin: 0
+
 body
   font-family: 'Nunito', sans-serif
   color: $font-basic-color
+  background: $bg-color
+  display: flex
+  flex-direction: column
 
 ul
   padding: 0
@@ -31,3 +38,9 @@ ul
   display: flex
   justify-content: center
   flex-wrap: wrap
+
+.container
+  min-height: 100%
+  width: 1525px
+  position: relative
+  margin: 0 auto

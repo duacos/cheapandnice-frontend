@@ -1,14 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-axios.defaults.withCredentials = true;
-
-console.log(process.env.REACT_APP_API);
-
-// general configuration of api point
-const config = {
-  url: process.env.REACT_APP_API,
-};
+import { config } from "../../config";
 
 export const useFetchAllProducts = (setLoading) => {
   const [products, setProducts] = useState([]);
@@ -25,7 +17,7 @@ export const useFetchAllProducts = (setLoading) => {
 };
 
 export const useFetchOneProduct = (setLoading, productId) => {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({ photos: [] });
   const productLength = Object.keys(product).length;
 
   useEffect(() => {
@@ -49,25 +41,16 @@ export async function searchProducts(searchValue) {
 }
 
 export async function addToCart(productId, quantity) {
-  const response = await axios.post(`${config.url}/cart/new`, {
+  const response = await axios.post(`${config.url}/api/cart/new`, {
     productId,
     quantity,
   });
-
   return response.data.body;
 }
 
-export const useFetchCartProducts = (setLoading) => {
-  const [cart, setCart] = useState({});
-  const cartLength = Object.keys(cart).length;
-
-  useEffect(() => {
-    axios.get(`${config.url}/api/cart`).then((response) => {
-      setCart(response.data.body);
-      setLoading(false);
-    });
-  }, [cartLength, setLoading]);
-  return cart;
+export const fetchCartProducts = async () => {
+  const response = await axios.get(`${config.url}/api/cart`);
+  return response.data.body;
 };
 
 export const useHeaderProfileData = (isLoggedIn, localUsername) => {

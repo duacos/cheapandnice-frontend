@@ -1,52 +1,86 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../assets/styles/cart.sass";
 import { useLoading } from "../helpers";
-
-import { useFetchCartProducts } from "../api/products";
+import CartList from "../components/CartList";
+import { fetchCartProducts } from "../api/products";
 
 const Cart = () => {
-  const loadPage = useLoading();
-  const cart = useFetchCartProducts(loadPage.setLoading);
+  const { setLoading, isLoading } = useLoading();
+  const [cart, setCart] = useState({ products: [] });
+  const { totalPrice, quantity } = useCartSummary(cart);
+  const cartLength = Object.keys(cart).length;
 
-  const getList = () => {
-    if (cart.products) {
-      return cart.products.map((product) => {
-        return (
-          <li key={product._id}>
-            <div className="cart-product-img">
-              <img src={product.photo} alt="products"></img>
-            </div>
-            <div className="cart-product-name">
-              <h2>{product.name}</h2>
-            </div>
+  useEffect(() => {
+    fetchCartProducts().then((cart) => {
+      setCart(cart);
+      setLoading(false);
+    });
+  }, [cartLength, setLoading]);
 
-            <div className="cart-product-details">
-              <div className="cart-product-quantity">
-                Quantity: {product.quantity}
-              </div>
-              <div className="cart-product-price">
-                ${product.price.toFixed(2) * product.quantity} USD
-              </div>
-            </div>
-          </li>
-        );
-      });
-    }
+  const filterWhenDeleted = () => {
+    fetchCartProducts().then((cart) => {
+      setCart(cart);
+      setLoading(false);
+    });
   };
 
-  return (
+  const getList = () => {
+    const { products, _id } = cart;
+    return products.map((product) => {
+      return (
+        <li key={product._id}>
+          <CartList product={product} filter={filterWhenDeleted} cartId={_id} />
+        </li>
+      );
+    });
+  };
+
+  return isLoading ? (
+    <h1>Loading</h1>
+  ) : (
     <React.Fragment>
       <div className="container">
         <h1 className="content-title">These are your products</h1>
         <div className="flex-listing">
           <ul className="cart">{getList()}</ul>
-          <div className="cart-summay">
-            <div className="cart-summay-text">Subtotal (2 items): </div>
+          <div className="cart-summary">
+            <div className="cart-product-details">
+              <div className="cart-product-quantity">
+                Subtotal ({quantity}):
+              </div>
+              <span>
+                <div className="cart-product-price">
+                  ${totalPrice.toFixed(2)}
+                </div>
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </React.Fragment>
   );
+};
+
+const useCartSummary = (cart) => {
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  useEffect(() => {
+    const { products } = cart;
+    // reduce product prices to a single value
+    setTotalPrice(
+      products.reduce((acum, product) => {
+        const priceForEachItem = product.price.toFixed(2) * product.quantity;
+        return acum + priceForEachItem;
+      }, 0) // starting value of the accumulator (acum)
+    );
+    // same process as above for quantity
+    setQuantity(products.reduce((acum, product) => acum + product.quantity, 0));
+  }, [setTotalPrice, setQuantity, cart]);
+
+  return {
+    totalPrice,
+    quantity,
+  };
 };
 
 export default Cart;

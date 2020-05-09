@@ -33,7 +33,7 @@ const Header = () => {
   const handleClick = () => {
     // Invisible when pressing "search"
     setResultsVisible(false);
-    history.push(`/products?search=${searchValue}`);
+    if (searchValue) history.push(`/products?search=${searchValue}`);
   };
 
   const handleOnFocus = () => {

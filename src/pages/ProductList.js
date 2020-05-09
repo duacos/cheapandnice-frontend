@@ -9,11 +9,11 @@ import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 
 const ProductList = () => {
-  const loadPage = useLoading();
+  const { setLoading, isLoading } = useLoading();
   const history = useHistory();
   // we parse the query into something more readable, an object!
   const urlQuery = queryString.parse(history.location.search);
-  const products = useFetchData(loadPage.setLoading, urlQuery.search);
+  const products = useFetchData(setLoading, urlQuery.search);
 
   const getList = () => {
     return products.map((product) => {
@@ -25,12 +25,15 @@ const ProductList = () => {
     });
   };
 
-  return loadPage.isLoading ? (
+  return isLoading ? (
     <h1>Loading</h1>
   ) : (
     <React.Fragment>
-      <h1>Deals and Promotions</h1>
-      <div className="container">{getList()}</div>
+      <div className="container">
+        <h1 className="content-title">Search results for {urlQuery.search} </h1>
+
+        <ul className="flex-listing">{getList()}</ul>
+      </div>
     </React.Fragment>
   );
 };
@@ -42,8 +45,6 @@ const useFetchData = (setLoading, query) => {
       setProducts(foundProducts);
       setLoading(false);
     });
-
-    console.log("loop");
   }, [products.length, setLoading, query]);
 
   return products;

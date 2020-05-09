@@ -6,33 +6,33 @@ import ReactMarkdown from "react-markdown";
 import ImageGallery from "react-image-gallery";
 import { Link } from "react-router-dom";
 import { useFetchOneProduct, addToCart } from "../api/products";
-
-// called when url is products/:id
+import { useHistory } from "react-router-dom";
 
 const ProductView = (props) => {
   const [quantity, setQuantity] = useState(1);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  //Custom hooks
-  const loadPage = useLoading();
+
+  const { setLoading } = useLoading();
+  const history = useHistory();
   const productId = props.match.params.productId;
-  const product = useFetchOneProduct(loadPage.setLoading, productId);
+  const product = useFetchOneProduct(setLoading, productId);
 
   const showGallery = () => {
-    // do this only if product.photos exists
-    if (product.photos) {
-      const images = product.photos.map((photo) => {
-        return {
-          original: photo.fullsize,
-          thumbnail: photo.thumbnail,
-        };
-      });
+    const images = product.photos.map((photo) => {
+      return {
+        original: photo.fullsize,
+        thumbnail: photo.thumbnail,
+      };
+    });
 
-      return <ImageGallery items={images} />;
-    }
+    return <ImageGallery items={images} />;
   };
 
   const handleClick = (productId) => {
-    addToCart(productId, quantity);
+    // addToCart makes the request
+    addToCart(productId, quantity).then(() => {
+      history.push("/products/cart");
+    });
   };
 
   const handleChange = (e) => {
@@ -68,7 +68,7 @@ const ProductView = (props) => {
                   className="product-button"
                   onClick={handleClick.bind(this, product._id)}
                 >
-                  <Link to="/products/cart">Add to cart</Link>
+                  Add to cart
                 </button>
               ) : (
                 <button className="product-button-login">

@@ -6,6 +6,7 @@ const MainLayout = (props) => {
     <React.Fragment>
       <Header />
       {props.children}
+      <footer>&copy;</footer>
     </React.Fragment>
   );
 };
