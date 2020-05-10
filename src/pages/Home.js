@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/styles/home.sass";
 import { useLoading } from "../helpers";
 import ProductItem from "../components/ProductItem";
@@ -11,17 +11,31 @@ import "react-animated-slider/build/horizontal.css";
 import HomeLoader from "../loaders/HomeLoader";
 
 const Home = () => {
-  const { setLoading, isLoading } = useLoading();
+  const [activeOn, setActiveOn] = useState("");
+  const { isLoading, setLoading } = useLoading();
   const products = useFetchAllProducts(setLoading);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    setFilteredData(products);
+  }, [setFilteredData, products]);
 
   const getList = () => {
-    return products.map((product) => {
+    return filteredData.map((product) => {
       return (
         <li className="product-item" key={product._id}>
           <ProductItem product={product} />
         </li>
       );
     });
+  };
+
+  const handleClick = (category) => {
+    const filtered = products.filter((product) => {
+      return product.type === category;
+    });
+    setFilteredData(filtered);
+    setActiveOn(category);
   };
 
   const slides = [
@@ -60,6 +74,35 @@ const Home = () => {
       </Slider>
       <div className="container">
         <h1 className="content-title">Deals and Promotions</h1>
+
+        <div className="filter-box">
+          <ul>
+            <li
+              className={activeOn === "fashion" ? "active" : "inactive"}
+              onClick={handleClick.bind(this, "fashion")}
+            >
+              Fashion
+            </li>
+            <li
+              className={activeOn === "technology" ? "active" : "inactive"}
+              onClick={handleClick.bind(this, "technology")}
+            >
+              Technology
+            </li>
+            <li
+              className={activeOn === "art" ? "active" : "inactive"}
+              onClick={handleClick.bind(this, "art")}
+            >
+              Art
+            </li>
+            <li
+              className={activeOn === "photography" ? "active" : "inactive"}
+              onClick={handleClick.bind(this, "photography")}
+            >
+              Photography
+            </li>
+          </ul>
+        </div>
 
         <ul className="flex-listing">{getList()}</ul>
       </div>
