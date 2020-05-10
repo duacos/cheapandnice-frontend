@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/login.sass";
 import axios from "axios";
-
-axios.defaults.withCredentials = true;
+import { config } from "../config";
 
 function Login(props) {
   const username = useFormInput("");
@@ -10,13 +9,10 @@ function Login(props) {
 
   const loginUser = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/users/login",
-        {
-          username: username.value,
-          password: password.value,
-        }
-      );
+      const response = await axios.post(`${config.url}/api/users/login`, {
+        username: username.value,
+        password: password.value,
+      });
       localStorage.setItem("username", response.data.body.username);
       localStorage.setItem("isLoggedIn", true);
       props.history.goBack();
