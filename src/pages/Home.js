@@ -8,9 +8,11 @@ import { useFetchAllProducts } from "../api/products";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
 
+import HomeLoader from "../loaders/HomeLoader";
+
 const Home = () => {
-  const loadPage = useLoading();
-  const products = useFetchAllProducts(loadPage.setLoading);
+  const { setLoading, isLoading } = useLoading();
+  const products = useFetchAllProducts(setLoading);
 
   const getList = () => {
     return products.map((product) => {
@@ -38,8 +40,8 @@ const Home = () => {
     },
   ];
 
-  return loadPage.isLoading ? (
-    <h1>Loading</h1>
+  return isLoading ? (
+    <HomeLoader />
   ) : (
     <React.Fragment>
       <Slider autoplay={3000}>
