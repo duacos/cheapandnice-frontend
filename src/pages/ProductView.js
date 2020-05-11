@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/home.sass";
 import "../assets/styles/productView.sass";
-import { useLoading } from "../helpers";
+import { useLoading, useTitle } from "../helpers";
 import ReactMarkdown from "react-markdown";
 import ImageGallery from "react-image-gallery";
 import { Link } from "react-router-dom";
@@ -9,13 +9,14 @@ import { useFetchOneProduct, addToCart } from "../api/products";
 import { useHistory } from "react-router-dom";
 
 const ProductView = (props) => {
+  const { setLoading } = useLoading();
+  const productId = props.match.params.productId;
   const [quantity, setQuantity] = useState(1);
+  const product = useFetchOneProduct(setLoading, productId);
+  useTitle(product.title);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-  const { setLoading } = useLoading();
   const history = useHistory();
-  const productId = props.match.params.productId;
-  const product = useFetchOneProduct(setLoading, productId);
 
   const showGallery = () => {
     const images = product.photos.map((photo) => {
@@ -50,19 +51,27 @@ const ProductView = (props) => {
               <div className="product-description">
                 <ReactMarkdown source={product.description} />
               </div>
-              <div className="product-price">
-                <span>Quantity:</span>
-                <input
-                  type="number"
-                  className="product-quantity"
-                  onChange={handleChange}
-                  value={quantity}
-                  min="1"
-                  max="10"
-                  step="1"
-                />
-                Price :${product.price * quantity}
+
+              <div className="cart-product-details">
+                <div className="cart-product-quantity">
+                  <span>QTY: </span>
+                  <input
+                    type="number"
+                    className="product-quantity"
+                    onChange={handleChange}
+                    value={quantity}
+                    min="1"
+                    max="10"
+                    step="1"
+                  />
+                </div>
+                <span>
+                  <div className="cart-product-price">
+                    Price :${product.price * quantity}
+                  </div>
+                </span>
               </div>
+
               {isLoggedIn ? (
                 <button
                   className="product-button"

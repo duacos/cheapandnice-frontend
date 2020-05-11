@@ -1,7 +1,7 @@
 @import "imageGallery.css"
 @import config.sass
 
-$gallery-width: 500px
+$gallery-width: 23em
 
 .product
 
@@ -39,6 +39,7 @@ $gallery-width: 500px
     width: 600px
     right: 10em
     color: $font-basic-color
+    box-sizing: border-box
 
     h1
       font-family: 'Roboto Condensed', sans-serif
@@ -76,7 +77,52 @@ $gallery-width: 500px
   &-thumbnail
     width: auto
 
+.cart
+  &-product-details
+    position: relative
+    padding: 2em
+    width: 100%
+    margin-top: 2em
+    box-sizing: border-box
+    border-radius: 10px
+    background-color: $box-shadow
+  &-product-quantity, &-product-price
+    position: absolute
+    font-size: 1.2em
+  &-product-quantity
+    left: 1em
+    top: 50%
+    transform: translateY(-50%)
+
+    span
+      margin-right: 1em
+
+  &-product-price
+    color: $main-color-two
+    text-align: right
+    right: 1em
+    top: 50%
+    transform: translateY(-50%)
+
 @media only screen and (max-width: 1024px)
   .product-gallery
-    margin-bottom: 4em
-    width: 23em
+    margin-bottom: 2em
+  .product-details h1
+    font-size: 1.3em
+  .product-description
+    font-size: 1em
+@media only screen and (max-width: 414px)
+
+  .product-gallery
+    margin-left: 0
+    margin-right: 0
+    width: 70%
+  .product-details
+    width: 100%
+    margin-left: 0
+    margin-right: 0
+    padding-left: 2em
+    padding-right: 2em
+
+    h1
+      font-size: 1.4em
