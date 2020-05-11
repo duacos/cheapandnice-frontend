@@ -9,6 +9,8 @@ const HomeLoader = () => {
       <div className="container">
         <div className="content-title loader-box loader-content-title"></div>
 
+        <div className="filter-box loader-box loader-filter-bar"></div>
+
         <ul className="flex-listing">
           <div className="product-item loader-box loader-product-item"></div>
           <div className="product-item loader-box loader-product-item"></div>

@@ -7,18 +7,19 @@ function Login(props) {
   const username = useFormInput("");
   const password = useFormInput("");
 
-  const loginUser = async () => {
-    try {
-      const response = await axios.post(`${config.url}/api/users/login`, {
+  const loginUser = () => {
+    axios
+      .post(`${config.url}/api/users/login`, {
         username: username.value,
         password: password.value,
+      })
+      .then((response) => {
+        localStorage.setItem("username", response.data.body.username);
+        localStorage.setItem("isLoggedIn", true);
+      })
+      .then(() => {
+        props.history.goBack();
       });
-      localStorage.setItem("username", response.data.body.username);
-      localStorage.setItem("isLoggedIn", true);
-      props.history.goBack();
-    } catch (err) {
-      console.log(err.message);
-    }
   };
 
   return (

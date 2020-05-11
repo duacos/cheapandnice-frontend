@@ -4,9 +4,13 @@ import Header from "../components/Header";
 const MainLayout = (props) => {
   return (
     <React.Fragment>
-      <Header />
-      {props.children}
-      <footer>&copy;</footer>
+      <div id="page-container">
+        <div id="content-wrap">
+          <Header />
+          {props.children}
+          <footer>&copy;</footer>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

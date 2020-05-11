@@ -104,7 +104,7 @@ const Home = () => {
           </ul>
         </div>
 
-        <ul className="flex-listing">{getList()}</ul>
+        <ul className="flex-listing filter-items">{getList()}</ul>
       </div>
     </React.Fragment>
   );
