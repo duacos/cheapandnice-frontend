@@ -40,20 +40,18 @@ export async function searchProducts(searchValue) {
   return response.data.body;
 }
 
-export const useFetchCurrentUser = (isLoggedIn, localUsername) => {
+export const useFetchCurrentUser = (isLoggedIn) => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.post(`${config.url}/api/users/current`, {
-        username: localUsername,
-      });
+      const response = await axios.get(`${config.url}/api/users/current`);
       setUsername(response.data.body.username);
     }
     if (isLoggedIn) {
       fetchData();
     }
-  }, [username, isLoggedIn, localUsername]);
+  }, [username, isLoggedIn]);
 
   return username;
 };

@@ -15,8 +15,7 @@ const Header = () => {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState("");
   const [results, setResults] = useState([]);
-  /* we don't want the search list to be visible the whole time,
-   but only when we type in the search bar*/
+  // Prevent search list from being visible all the time
   const [resultsVisible, setResultsVisible] = useState(false);
   const username = useFetchCurrentUser(isLoggedIn, localUsername);
 

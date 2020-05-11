@@ -47,9 +47,7 @@ const Cart = () => {
           <ul className="cart">{getList()}</ul>
           <div className="cart-summary">
             <div className="cart-product-details">
-              <div className="cart-product-quantity">
-                Subtotal ({quantity}):
-              </div>
+              <div className="cart-product-quantity">Total ({quantity}):</div>
               <span>
                 <div className="cart-product-price">
                   ${totalPrice.toFixed(2)}
