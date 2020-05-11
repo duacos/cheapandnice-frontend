@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/cart.sass";
-import { useLoading } from "../helpers";
+import { useLoading, useTitle } from "../helpers";
 import CartList from "../components/CartList";
 import { fetchCartProducts } from "../api/products";
+import Beat from "../loaders/Beat";
 
 const Cart = () => {
+  useTitle("Cart");
   const { setLoading, isLoading } = useLoading();
   const [cart, setCart] = useState({ products: [] });
   const { totalPrice, quantity } = useCartSummary(cart);
@@ -36,7 +38,7 @@ const Cart = () => {
   };
 
   return isLoading ? (
-    <h1>Loading</h1>
+    <Beat />
   ) : (
     <React.Fragment>
       <div className="container">

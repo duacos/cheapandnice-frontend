@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { removeProductFromCart } from "../api/products";
 
 const CartList = ({ product, cartId, filter }) => {
   const { productId } = product;
+
   const handleClick = async () => {
-    await axios.patch("http://localhost:8080/api/cart/remove/product", {
-      cartId,
-      productId,
+    removeProductFromCart(cartId, productId).then(() => {
+      filter();
     });
-    filter();
   };
 
   return (

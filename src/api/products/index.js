@@ -40,6 +40,24 @@ export async function searchProducts(searchValue) {
   return response.data.body;
 }
 
+export const useFetchCurrentUser = (isLoggedIn, localUsername) => {
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.post(`${config.url}/api/users/current`, {
+        username: localUsername,
+      });
+      setUsername(response.data.body.username);
+    }
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [username, isLoggedIn, localUsername]);
+
+  return username;
+};
+
 export async function addToCart(productId, quantity) {
   const response = await axios.post(`${config.url}/api/cart/new`, {
     productId,
@@ -53,20 +71,13 @@ export const fetchCartProducts = async () => {
   return response.data.body;
 };
 
-export const useHeaderProfileData = (isLoggedIn, localUsername) => {
-  const [username, setUsername] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get(`${config.url}/api/users/store`, {
-        username: localUsername,
-      });
-      setUsername(response.data.body.username);
-    }
-    if (isLoggedIn) {
-      fetchData();
-    }
-  }, [username, isLoggedIn, localUsername]);
-
-  return username;
+export const removeProductFromCart = (cartId, productId) => {
+  return axios
+    .patch(`${config.url}/api/cart/remove/product`, {
+      cartId,
+      productId,
+    })
+    .catch((e) => {
+      throw new Error(e.message);
+    });
 };

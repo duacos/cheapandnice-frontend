@@ -6,7 +6,7 @@ import SearchResults from "../components/SearchResults";
 import { ReactComponent as ProfileSImg } from "../assets/images/profile.svg";
 import { ReactComponent as CartImg } from "../assets/images/cart.svg";
 
-import { searchProducts, useHeaderProfileData } from "../api/products";
+import { searchProducts, useFetchCurrentUser } from "../api/products";
 
 const Header = () => {
   const localUsername = localStorage.getItem("username");
@@ -18,7 +18,7 @@ const Header = () => {
   /* we don't want the search list to be visible the whole time,
    but only when we type in the search bar*/
   const [resultsVisible, setResultsVisible] = useState(false);
-  const username = useHeaderProfileData(isLoggedIn, localUsername);
+  const username = useFetchCurrentUser(isLoggedIn, localUsername);
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);

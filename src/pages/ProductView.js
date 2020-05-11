@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../assets/styles/home.sass";
 import "../assets/styles/productView.sass";
 import { useLoading, useTitle } from "../helpers";
 import ReactMarkdown from "react-markdown";
@@ -7,13 +6,16 @@ import ImageGallery from "react-image-gallery";
 import { Link } from "react-router-dom";
 import { useFetchOneProduct, addToCart } from "../api/products";
 import { useHistory } from "react-router-dom";
+import ProductViewLoader from "../loaders/ProductViewLoader";
 
 const ProductView = (props) => {
-  const { setLoading } = useLoading();
-  const productId = props.match.params.productId;
+  const { setLoading, isLoading } = useLoading();
   const [quantity, setQuantity] = useState(1);
+
+  const productId = props.match.params.productId;
   const product = useFetchOneProduct(setLoading, productId);
   useTitle(product.title);
+
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   const history = useHistory();
@@ -40,7 +42,9 @@ const ProductView = (props) => {
     setQuantity(e.target.value);
   };
 
-  return (
+  return isLoading ? (
+    <ProductViewLoader />
+  ) : (
     <React.Fragment>
       <div className="product">
         <div className="container">

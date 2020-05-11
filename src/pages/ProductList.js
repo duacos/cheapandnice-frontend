@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/home.sass";
-import { useLoading } from "../helpers";
+import { useLoading, useTitle } from "../helpers";
 import ProductItem from "../components/ProductItem";
 
 import { searchProducts } from "../api/products";
 
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
+import Beat from "../loaders/Beat";
 
 const ProductList = () => {
   const { setLoading, isLoading } = useLoading();
@@ -14,6 +15,7 @@ const ProductList = () => {
   // we parse the query into something more readable, an object!
   const urlQuery = queryString.parse(history.location.search);
   const products = useFetchData(setLoading, urlQuery.search);
+  useTitle(urlQuery.search);
 
   const getList = () => {
     return products.map((product) => {
@@ -26,7 +28,7 @@ const ProductList = () => {
   };
 
   return isLoading ? (
-    <h1>Loading</h1>
+    <Beat />
   ) : (
     <React.Fragment>
       <div className="container">
