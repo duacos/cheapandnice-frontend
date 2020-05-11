@@ -34,15 +34,15 @@ $gallery-width: 500px
 
   &-gallery
     width: $gallery-width
-    left: 5em
 
   &-details
-    width: 700px
+    width: 600px
     right: 10em
     color: $font-basic-color
 
     h1
       font-family: 'Roboto Condensed', sans-serif
+      text-align: left
 
   &-description
     font-size: 1.2em
@@ -75,3 +75,8 @@ $gallery-width: 500px
     width: $gallery-width
   &-thumbnail
     width: auto
+
+@media only screen and (max-width: 1024px)
+  .product-gallery
+    margin-bottom: 4em
+    width: 23em

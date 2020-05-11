@@ -10,6 +10,8 @@ import "react-animated-slider/build/horizontal.css";
 
 import HomeLoader from "../loaders/HomeLoader";
 
+import { config } from "../config";
+
 const Home = () => {
   const [activeOn, setActiveOn] = useState("");
   const { isLoading, setLoading } = useLoading();
@@ -18,6 +20,8 @@ const Home = () => {
 
   useEffect(() => {
     setFilteredData(products);
+    // update document title
+    document.title = config.docTitle + " | Home";
   }, [setFilteredData, products]);
 
   const getList = () => {
