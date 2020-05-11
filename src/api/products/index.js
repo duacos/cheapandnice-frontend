@@ -66,7 +66,7 @@ export async function addToCart(productId, quantity) {
 
 export const fetchCartProducts = async () => {
   const response = await axios.get(`${config.url}/api/cart`);
-  return response.data.body;
+  return response.data.body ? response.data.body : { products: [] };
 };
 
 export const removeProductFromCart = (cartId, productId) => {
