@@ -10,22 +10,34 @@ const ProductListPage = lazy(() => import("./pages/ProductList"));
 const CartPage = lazy(() => import("./pages/Cart"));
 const RegisterPage = lazy(() => import("./pages/Register"));
 
+// This allows me to load multiple layouts
+const LayoutComponent = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        <MainLayout>
+          <Component {...props} />
+        </MainLayout>
+      )}
+    />
+  );
+};
+
 const Router = () => (
   <BrowserRouter>
     <Suspense fallback={<Beat />}>
       <Switch>
-        <MainLayout>
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signup" component={RegisterPage} />
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/products" component={ProductListPage} />
-          <Route exact path="/products/cart" component={CartPage} />
-          <Route
-            exact
-            path="/products/:productId"
-            component={ProductViewPage}
-          />
-        </MainLayout>
+        <LayoutComponent exact path="/login" component={LoginPage} />
+        <LayoutComponent exact path="/signup" component={RegisterPage} />
+        <LayoutComponent exact path="/" component={HomePage} />
+        <LayoutComponent exact path="/products" component={ProductListPage} />
+        <LayoutComponent exact path="/products/cart" component={CartPage} />
+        <LayoutComponent
+          exact
+          path="/products/:productId"
+          component={ProductViewPage}
+        />
       </Switch>
     </Suspense>
   </BrowserRouter>
