@@ -10,10 +10,16 @@ const Register = (props) => {
   const history = useHistory();
   const loginUser = () => {
     axios
-      .post(`${config.url}/api/users/signup`, {
-        username: username.value,
-        password: password.value,
-      })
+      .post(
+        `${config.url}/api/users/signup`,
+        {
+          username: username.value,
+          password: password.value,
+        },
+        {
+          widthCredentials: true,
+        }
+      )
       .then((response) => {
         localStorage.setItem("username", response.data.body.username);
         localStorage.setItem("isLoggedIn", true);
