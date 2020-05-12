@@ -4,7 +4,8 @@ import { useLoading, useTitle } from "../helpers";
 import ReactMarkdown from "react-markdown";
 import ImageGallery from "react-image-gallery";
 import { Link } from "react-router-dom";
-import { useFetchOneProduct, addToCart } from "../api/products";
+import { useFetchOneProduct } from "../api/products";
+import { addToCart } from "../api/cart";
 import { useHistory } from "react-router-dom";
 import ProductViewLoader from "../loaders/ProductViewLoader";
 

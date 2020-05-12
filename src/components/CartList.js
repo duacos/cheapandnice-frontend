@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { removeProductFromCart } from "../api/products";
+import { removeProductFromCart } from "../api/cart";
 
 const CartList = ({ product, cartId, filter }) => {
   const { productId } = product;

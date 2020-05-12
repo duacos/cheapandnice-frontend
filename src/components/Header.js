@@ -6,7 +6,7 @@ import { ReactComponent as ProfileSImg } from "../assets/images/profile.svg";
 import { ReactComponent as CartImg } from "../assets/images/cart.svg";
 import axios from "axios";
 import { config } from "../config";
-import { useFetchCurrentUser } from "../api/products";
+import { useFetchCurrentUser } from "../api/users";
 
 const Header = () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");

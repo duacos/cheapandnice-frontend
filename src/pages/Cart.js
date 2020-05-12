@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/cart.sass";
 import { useLoading, useTitle } from "../helpers";
 import CartList from "../components/CartList";
-import { fetchCartProducts } from "../api/products";
+import { fetchCartProducts } from "../api/cart";
 import Beat from "../loaders/Beat";
 
 const Cart = () => {

@@ -8,7 +8,12 @@ const MainLayout = (props) => {
         <div id="content-wrap">
           <Header />
           {props.children}
-          <footer>&copy;</footer>
+          <footer>
+            <div className="container">
+              &copy; {new Date().getFullYear()} Cheap and Nice - All rights
+              reserved
+            </div>
+          </footer>
         </div>
       </div>
     </React.Fragment>
