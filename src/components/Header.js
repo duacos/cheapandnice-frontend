@@ -1,86 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/images/logo.png";
 import { Link, useHistory } from "react-router-dom";
-import SearchResults from "../components/SearchResults";
-
+import SearchBar from "./SearchBar";
 import { ReactComponent as ProfileSImg } from "../assets/images/profile.svg";
 import { ReactComponent as CartImg } from "../assets/images/cart.svg";
-
-import { searchProducts, useFetchCurrentUser } from "../api/products";
+import axios from "axios";
+import { config } from "../config";
+import { useFetchCurrentUser } from "../api/products";
 
 const Header = () => {
-  const localUsername = localStorage.getItem("username");
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-
+  const username = useFetchCurrentUser(isLoggedIn);
   const history = useHistory();
-  const [searchValue, setSearchValue] = useState("");
-  const [results, setResults] = useState([]);
+
+  const handleClick = async () => {
+    localStorage.clear();
+    await axios.delete(`${config.url}/api/users/logout`);
+    history.push("/login");
+  };
+
   // Prevent search list from being visible all the time
-  const [resultsVisible, setResultsVisible] = useState(false);
-  const username = useFetchCurrentUser(isLoggedIn, localUsername);
-
-  const handleChange = (e) => {
-    setSearchValue(e.target.value);
-    searchProducts(e.target.value).then((data) => {
-      setResults(data);
-    });
-
-    // search results are visible while typing
-    setResultsVisible(true);
-  };
-
-  const handleClick = () => {
-    // Invisible when pressing "search"
-    setResultsVisible(false);
-    if (searchValue) history.push(`/products?search=${searchValue}`);
-  };
-
-  const handleOnFocus = () => {
-    // Remove the search results if active
-    setResultsVisible(false);
-  };
 
   return (
     <header className="header">
       <Link to="/">
         <img className="header-img" src={logo} alt="cheap and nice logo"></img>
       </Link>
-      <div className="header-search">
-        <div className="header-search-bar">
-          <input
-            className="header-input"
-            placeholder="Enter your search ..."
-            onChange={handleChange}
-            onFocus={handleOnFocus}
-            type="text"
-          />
-          <button className="header-search-button" onClick={handleClick}>
-            Search
-          </button>
-        </div>
-        {resultsVisible ? (
-          <ul className="header-search-results">
-            <SearchResults results={results} />
-          </ul>
-        ) : (
-          ""
-        )}
-      </div>
+
+      <SearchBar />
       <div className="header-icons">
         <div className="header-icon">
           <ProfileSImg />
         </div>
         <div className="header-text">
-          {username ? (
-            username
+          {isLoggedIn ? (
+            <React.Fragment>
+              {username} |{" "}
+              <span className="header-logout" onClick={handleClick}>
+                Logout
+              </span>
+            </React.Fragment>
           ) : (
             <div>
-              <Link to="/login">Login</Link> | Register
+              <Link to="/login">Log in</Link> |{" "}
+              <Link to="/signup">Sign up</Link>
             </div>
           )}
         </div>
 
-        {username ? (
+        {isLoggedIn ? (
           <React.Fragment>
             <div className="header-icon">
               <CartImg />

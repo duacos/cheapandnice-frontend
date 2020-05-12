@@ -4,14 +4,13 @@ import axios from "axios";
 import { config } from "../config";
 import { useHistory } from "react-router-dom";
 
-const Login = (props) => {
+const Register = (props) => {
   const username = useFormInput("");
   const password = useFormInput("");
   const history = useHistory();
-
   const loginUser = () => {
     axios
-      .post(`${config.url}/api/users/login`, {
+      .post(`${config.url}/api/users/signup`, {
         username: username.value,
         password: password.value,
       })
@@ -20,13 +19,13 @@ const Login = (props) => {
         localStorage.setItem("isLoggedIn", true);
       })
       .then(() => {
-        history.goBack();
+        history.push("/");
       });
   };
 
   return (
     <div className="account-form">
-      <h1>Log in</h1>
+      <h1>Create an account</h1>
       <div className="account-form-section">
         <label className="account-form-label">Username</label>
         <br />
@@ -40,7 +39,7 @@ const Login = (props) => {
       </div>
 
       <div className="account-form-button">
-        <input type="submit" value="Login" onClick={loginUser} />
+        <input type="submit" value="Sign up" onClick={loginUser} />
       </div>
     </div>
   );
@@ -59,4 +58,4 @@ const useFormInput = (intial) => {
   };
 };
 
-export default Login;
+export default Register;
