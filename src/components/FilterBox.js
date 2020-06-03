@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const FilterBox = ({ products, setFilteredData }) => {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("all");
 
   const handleClick = (category) => {
     // if there is a category then filter the data
     const filtered = products.filter((product) => {
       return product.type === category;
     });
+    debugger;
     setCategory(category);
     setFilteredData(filtered);
   };
@@ -15,6 +16,12 @@ const FilterBox = ({ products, setFilteredData }) => {
   return (
     <div className="filter-box">
       <ul>
+        <li
+          className={category === "all" ? "active" : "inactive"}
+          onClick={handleClick.bind(this, "all")}
+        >
+          All products
+        </li>
         <li
           className={category === "fashion" ? "active" : "inactive"}
           onClick={handleClick.bind(this, "fashion")}
